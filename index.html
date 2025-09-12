@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <script src="https://static.readdy.ai/static/e.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libasse Ndoye Cissé - Développeur Front-end & UI/UX Designer</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00D9FF',
+                        secondary: '#FF6B35'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+         :where([class^="ri-"])::before {
+            content: "\f3c2";
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #00D9FF, #FF6B35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-bg {
+            background-image: url('https://readdy.ai/api/search-image?query=modern%20minimalist%20workspace%20with%20computer%20screens%20showing%20code%20and%20design%20interfaces%2C%20dark%20ambient%20lighting%2C%20professional%20developer%20setup%2C%20clean%20desk%20with%20multiple%20monitors%2C%20subtle%20blue%20and%20orange%20accent%20lighting%2C%20high-tech%20atmosphere%2C%20cinematic%20composition&width=1920&height=1080&seq=hero001&orientation=landscape');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0.4) 100%);
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-8px);
+            transition: all 0.3s ease;
+        }
+        
+        .project-card {
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        .custom-cursor {
+            cursor: none;
+        }
+        
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: #00D9FF;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+        }
+        
+        .cursor-outline {
+            width: 32px;
+            height: 32px;
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.15s ease;
+        }
+        
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+        
+        .scroll-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #00D9FF, #FF6B35);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-black text-white overflow-x-hidden custom-cursor">
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+    <div class="scroll-indicator">
+        <div class="scroll-progress"></div>
+    </div>
+
+    <nav class="fixed top-0 w-full bg-black/90 backdrop-blur-sm z-50 border-b border-gray-800 sticky">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="text-xl font-bold gradient-text">Libasse.Dev</div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#accueil" class="text-gray-300 hover:text-primary transition-colors">Accueil</a>
+                <a href="#competences" class="text-gray-300 hover:text-primary transition-colors">Compétences</a>
+                <a href="#portfolio" class="text-gray-300 hover:text-primary transition-colors">Portfolio</a>
+                <a href="#contact" class="text-gray-300 hover:text-primary transition-colors">Contact</a>
+            </div>
+            <button class="md:hidden w-8 h-8 flex items-center justify-center" id="menu-toggle">
+                <i class="ri-menu-line text-xl"></i>
+            </button>
+        </div>
+        <div class="md:hidden bg-black/95 border-t border-gray-800 hidden" id="mobile-menu">
+            <div class="px-6 py-4 space-y-4">
+                <a href="#accueil" class="block text-gray-300 hover:text-primary transition-colors">Accueil</a>
+                <a href="#competences" class="block text-gray-300 hover:text-primary transition-colors">Compétences</a>
+                <a href="#portfolio" class="block text-gray-300 hover:text-primary transition-colors">Portfolio</a>
+                <a href="#contact" class="block text-gray-300 hover:text-primary transition-colors">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="accueil" class="hero-bg min-h-screen flex items-center relative">
+        <div class="hero-overlay absolute inset-0"></div>
+        <div class="relative z-10 w-full max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div class="flex items-center gap-8 mb-8">
+                        <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-primary/30 shadow-lg shadow-primary/20">
+                            <img src="lib.png" alt="Portrait" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-semibold mb-2">Libasse Ndoye Cissé</h2>
+                            <p class="text-gray-400">Front-end Developer & UI/UX Designer</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <h1 class="text-5xl lg:text-7xl font-bold leading-tight">
+                            Créateur d'<span class="gradient-text">expériences</span> digitales
+                        </h1>
+                        <p class="text-xl text-gray-300 leading-relaxed">
+                            Développeur Front-end & UI/UX Designer passionné par la création d'interfaces modernes et intuitives avec Angular et React.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-4">
+                        <button class="bg-primary text-black px-8 py-4 !rounded-button font-semibold hover:bg-primary/90 transition-all whitespace-nowrap">
+                           <a  href="#portfolio"> Voir mes projets</a>
+                        </button>
+                        <button onclick="downloadCV()" class="border border-white/30 text-white px-8 py-4 !rounded-button font-semibold hover:bg-white/10 transition-all whitespace-nowrap">
+                            Télécharger CV
+                        </button>
+                    </div>
+                </div>
+                <script>
+                    function downloadCV() {
+                        // Chemin vers ton fichier DOCX
+                        const link = document.createElement("a");
+                        link.href = "LIBASSE_NDOYE_CISSE.docx"; // doit être dans le même dossier que index.html
+                        link.download = "LIBASSE_NDOYE_CISSE_CV.docx"; // nom du fichier téléchargé
+                        link.click();
+                    }
+                </script>
+                <div class="floating-animation">
+                    <div class="relative">
+                        <div class="w-80 h-80 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full blur-3xl">
+                        </div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-64 h-64 border border-primary/30 rounded-full flex items-center justify-center">
+                                <div class="w-6 h-6 flex items-center justify-center">
+                                    <i class="ri-code-s-slash-line text-4xl text-primary"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="competences" class="py-24 bg-gray-900/50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-6">Mes <span class="gradient-text">Compétences</span></h2>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+                    Une expertise technique solide combinée à une vision créative pour des solutions digitales innovantes.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <div class="skill-card bg-gray-800/50 p-8 rounded-xl border border-gray-700">
+                    <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center mb-6">
+                        <i class="ri-angularjs-line text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Angular</h3>
+                    <p class="text-gray-400 mb-4">Framework robuste pour des applications web complexes et évolutives.
+                    </p>
+                    <div class="w-full bg-gray-700 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-red-500 to-red-600 h-2 rounded-full" style="width: 90%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-card bg-gray-800/50 p-8 rounded-xl border border-gray-700">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center mb-6">
+                        <i class="ri-reactjs-line text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">React</h3>
+                    <p class="text-gray-400 mb-4">Bibliothèque moderne pour créer des interfaces utilisateur dynamiques.
+                    </p>
+                    <div class="w-full bg-gray-700 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-blue-500 to-cyan-500 h-2 rounded-full" style="width: 85%">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card bg-gray-800/50 p-8 rounded-xl border border-gray-700">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mb-6">
+                        <i class="ri-palette-line text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">UI/UX Design</h3>
+                    <p class="text-gray-400 mb-4">Conception d'expériences utilisateur intuitives et esthétiques.</p>
+                    <div class="w-full bg-gray-700 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full" style="width: 88%">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card bg-gray-800/50 p-8 rounded-xl border border-gray-700">
+                    <div class="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center mb-6">
+                        <i class="ri-javascript-line text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">JavaScript</h3>
+                    <p class="text-gray-400 mb-4">Maîtrise avancée du langage pour des fonctionnalités interactives.</p>
+                    <div class="w-full bg-gray-700 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-yellow-500 to-orange-500 h-2 rounded-full" style="width: 92%">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card bg-gray-800/50 p-8 rounded-xl border border-gray-700">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center mb-6">
+                        <i class="ri-css3-line text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">CSS/SCSS</h3>
+                    <p class="text-gray-400 mb-4">Stylisation avancée et animations fluides pour des interfaces modernes.
+                    </p>
+                    <div class="w-full bg-gray-700 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-blue-600 to-blue-700 h-2 rounded-full" style="width: 89%">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card bg-gray-800/50 p-8 rounded-xl border border-gray-700">
+                    <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mb-6">
+                        <i class="ri-git-branch-line text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Git & DevOps</h3>
+                    <p class="text-gray-400 mb-4">Gestion de versions et déploiement continu pour des projets collaboratifs.
+                    </p>
+                    <div class="w-full bg-gray-700 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-green-500 to-emerald-500 h-2 rounded-full" style="width: 86%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <h3 class="text-2xl font-semibold mb-8">Outils & Technologies</h3>
+                <div class="flex flex-wrap justify-center gap-6">
+                    <div class="flex items-center space-x-2 bg-gray-800/30 px-4 py-2 rounded-lg">
+                        <i class="ri-figma-line text-lg text-purple-400"></i>
+                        <span>Figma</span>
+                    </div>
+                    <div class="flex items-center space-x-2 bg-gray-800/30 px-4 py-2 rounded-lg">
+                        <i class="ri-adobe-line text-lg text-red-400"></i>
+                        <span>Adobe Creative Suite</span>
+                    </div>
+                    <div class="flex items-center space-x-2 bg-gray-800/30 px-4 py-2 rounded-lg">
+                        <i class="ri-npmjs-line text-lg text-red-500"></i>
+                        <span>Node.js</span>
+                    </div>
+                    <div class="flex items-center space-x-2 bg-gray-800/30 px-4 py-2 rounded-lg">
+                        <i class="ri-database-2-line text-lg text-blue-400"></i>
+                        <span>MongoDB</span>
+                    </div>
+                    <div class="flex items-center space-x-2 bg-gray-800/30 px-4 py-2 rounded-lg">
+                        <i class="ri-cloud-line text-lg text-green-400"></i>
+                        <span>AWS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="py-24 bg-black">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-6">Mon <span class="gradient-text">Portfolio</span></h2>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+                    Découvrez une sélection de mes projets récents alliant développement front-end et design d'interface.
+                </p>
+            </div>
+
+            <div class="flex justify-center mb-12">
+                <div class="flex bg-gray-800/50 p-1 rounded-full">
+                    <button class="filter-btn active px-6 py-2 rounded-full text-sm font-medium transition-all" data-filter="all">
+                        Tous les projets
+                    </button>
+                    <button class="filter-btn px-6 py-2 rounded-full text-sm font-medium transition-all" data-filter="web">
+                        Applications Web
+                    </button>
+                    <button class="filter-btn px-6 py-2 rounded-full text-sm font-medium transition-all" data-filter="design">
+                        UI/UX Design
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="project-card bg-gray-900/50 rounded-xl overflow-hidden border border-gray-800" data-category="web">
+                    <div class="h-48 bg-cover bg-center" style="background-image: url('https://readdy.ai/api/search-image?query=modern%20e-commerce%20website%20interface%20with%20clean%20design%2C%20shopping%20cart%20functionality%2C%20product%20grid%20layout%2C%20minimalist%20aesthetic%2C%20professional%20web%20application%2C%20desktop%20view&width=400&height=300&seq=proj001&orientation=landscape')">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">E-Commerce Platform</h3>
+                        <p class="text-gray-400 mb-4">Application Angular complète avec panier d'achat, gestion des utilisateurs et interface d'administration.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-red-500/20 text-red-400 px-3 py-1 rounded-full text-sm">Angular</span>
+                            <span class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm">TypeScript</span>
+                            <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm">Node.js</span>
+                        </div>
+                        <div class="flex space-x-4">
+                            <button class="flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors">
+                                <i class="ri-external-link-line"></i>
+                                <span>Voir le projet</span>
+                            </button>
+                            <button class="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors">
+                                <i class="ri-github-line"></i>
+                                <span>Code source</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card bg-gray-900/50 rounded-xl overflow-hidden border border-gray-800" data-category="design">
+                    <div class="h-48 bg-cover bg-center" style="background-image: url('https://readdy.ai/api/search-image?query=mobile%20app%20ui%20design%20mockup%20showing%20financial%20dashboard%2C%20clean%20interface%20design%2C%20modern%20mobile%20application%20screens%2C%20fintech%20app%20design%2C%20user%20interface%20elements&width=400&height=300&seq=proj002&orientation=landscape')">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Application Mobile Fintech</h3>
+                        <p class="text-gray-400 mb-4">Design complet d'une application mobile de gestion financière avec interface intuitive et moderne.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full text-sm">Figma</span>
+                            <span class="bg-pink-500/20 text-pink-400 px-3 py-1 rounded-full text-sm">UI Design</span>
+                            <span class="bg-orange-500/20 text-orange-400 px-3 py-1 rounded-full text-sm">Prototyping</span>
+                        </div>
+                        <div class="flex space-x-4">
+                            <button class="flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors">
+                                <i class="ri-external-link-line"></i>
+                                <span>Voir le design</span>
+                            </button>
+                            <button class="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors">
+                                <i class="ri-figma-line"></i>
+                                <span>Fichier Figma</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card bg-gray-900/50 rounded-xl overflow-hidden border border-gray-800" data-category="web">
+                    <div class="h-48 bg-cover bg-center" style="background-image: url('https://readdy.ai/api/search-image?query=react%20dashboard%20interface%20with%20data%20visualization%2C%20analytics%20charts%2C%20modern%20web%20application%2C%20business%20intelligence%20dashboard%2C%20clean%20professional%20design&width=400&height=300&seq=proj003&orientation=landscape')">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Dashboard Analytics</h3>
+                        <p class="text-gray-400 mb-4">Interface React pour visualisation de données avec graphiques interactifs et tableaux de bord personnalisables.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm">React</span>
+                            <span class="bg-yellow-500/20 text-yellow-400 px-3 py-1 rounded-full text-sm">D3.js</span>
+                            <span class="bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full text-sm">Material-UI</span>
+                        </div>
+                        <div class="flex space-x-4">
+                            <button class="flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors">
+                                <i class="ri-external-link-line"></i>
+                                <span>Voir le projet</span>
+                            </button>
+                            <button class="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors">
+                                <i class="ri-github-line"></i>
+                                <span>Code source</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card bg-gray-900/50 rounded-xl overflow-hidden border border-gray-800" data-category="design">
+                    <div class="h-48 bg-cover bg-center" style="background-image: url('https://readdy.ai/api/search-image?query=website%20redesign%20before%20and%20after%20comparison%2C%20modern%20web%20design%20transformation%2C%20user%20experience%20improvement%2C%20responsive%20design%20mockups%2C%20professional%20website%20makeover&width=400&height=300&seq=proj004&orientation=landscape')">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Refonte Site Corporate</h3>
+                        <p class="text-gray-400 mb-4">Redesign complet d'un site corporate avec amélioration de l'expérience utilisateur et optimisation mobile.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full text-sm">UX
+                                Research</span>
+                            <span class="bg-pink-500/20 text-pink-400 px-3 py-1 rounded-full text-sm">Wireframing</span>
+                            <span class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm">Responsive</span>
+                        </div>
+                        <div class="flex space-x-4">
+                            <button class="flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors">
+                                <i class="ri-external-link-line"></i>
+                                <span>Voir le design</span>
+                            </button>
+                            <button class="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors">
+                                <i class="ri-presentation-line"></i>
+                                <span>Case Study</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card bg-gray-900/50 rounded-xl overflow-hidden border border-gray-800" data-category="web">
+                    <div class="h-48 bg-cover bg-center" style="background-image: url('https://readdy.ai/api/search-image?query=progressive%20web%20application%20interface%2C%20modern%20pwa%20design%2C%20offline%20functionality%2C%20mobile-first%20design%2C%20web%20app%20with%20native%20feel%2C%20responsive%20interface&width=400&height=300&seq=proj005&orientation=landscape')">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Progressive Web App</h3>
+                        <p class="text-gray-400 mb-4">PWA développée avec Angular offrant une expérience native sur mobile avec fonctionnalités offline.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-red-500/20 text-red-400 px-3 py-1 rounded-full text-sm">Angular</span>
+                            <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm">PWA</span>
+                            <span class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm">Service
+                                Worker</span>
+                        </div>
+                        <div class="flex space-x-4">
+                            <button class="flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors">
+                                <i class="ri-external-link-line"></i>
+                                <span>Voir le projet</span>
+                            </button>
+                            <button class="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors">
+                                <i class="ri-github-line"></i>
+                                <span>Code source</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card bg-gray-900/50 rounded-xl overflow-hidden border border-gray-800" data-category="design">
+                    <div class="h-48 bg-cover bg-center" style="background-image: url('https://readdy.ai/api/search-image?query=design%20system%20components%20library%2C%20ui%20kit%20elements%2C%20consistent%20design%20patterns%2C%20component%20documentation%2C%20modern%20interface%20elements%2C%20design%20tokens&width=400&height=300&seq=proj006&orientation=landscape')">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Design System</h3>
+                        <p class="text-gray-400 mb-4">Création d'un système de design complet avec composants réutilisables et guidelines pour équipe produit.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full text-sm">Design
+                                Tokens</span>
+                            <span class="bg-pink-500/20 text-pink-400 px-3 py-1 rounded-full text-sm">Component
+                                Library</span>
+                            <span class="bg-orange-500/20 text-orange-400 px-3 py-1 rounded-full text-sm">Documentation</span>
+                        </div>
+                        <div class="flex space-x-4">
+                            <button class="flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors">
+                                <i class="ri-external-link-line"></i>
+                                <span>Voir le système</span>
+                            </button>
+                            <button class="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors">
+                                <i class="ri-book-line"></i>
+                                <span>Documentation</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 bg-gray-900/30">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-6">Travaillons <span class="gradient-text">Ensemble</span></h2>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+                    Vous avez un projet en tête ? Discutons de vos besoins et créons quelque chose d'exceptionnel ensemble.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+                <div class="space-y-8">
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center">
+                                <i class="ri-mail-line text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">Email</h3>
+                                <p class="text-gray-400">alexandre.dubois@email.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center">
+                                <i class="ri-phone-line text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">Téléphone</h3>
+                                <p class="text-gray-400">+33 6 12 34 56 78</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center">
+                                <i class="ri-map-pin-line text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">Localisation</h3>
+                                <p class="text-gray-400">Paris, France</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-semibold">Suivez-moi</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-primary hover:text-black transition-all">
+                                <i class="ri-linkedin-line text-xl"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-primary hover:text-black transition-all">
+                                <i class="ri-github-line text-xl"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-primary hover:text-black transition-all">
+                                <i class="ri-dribbble-line text-xl"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-primary hover:text-black transition-all">
+                                <i class="ri-behance-line text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Nom</label>
+                            <input type="text" class="w-full bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-primary focus:outline-none transition-colors" placeholder="Votre nom">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Email</label>
+                            <input type="email" class="w-full bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-primary focus:outline-none transition-colors" placeholder="votre@email.com">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Sujet</label>
+                        <input type="text" class="w-full bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-primary focus:outline-none transition-colors" placeholder="Sujet de votre message">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Message</label>
+                        <textarea rows="6" class="w-full bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-primary focus:outline-none transition-colors resize-none" placeholder="Décrivez votre projet..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-primary text-black py-4 !rounded-button font-semibold hover:bg-primary/90 transition-all whitespace-nowrap">
+                        Envoyer le message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black border-t border-gray-800 py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center">
+                <div class="text-2xl font-bold gradient-text mb-4">Libasse Ndoye Cissé</div>
+                <p class="text-gray-400 mb-6">Développeur Front-end & UI/UX Designer</p>
+                <div class="flex justify-center space-x-6 mb-8">
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors">Accueil</a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors">Compétences</a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors">Portfolio</a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors">Contact</a>
+                </div>
+                <div class="border-t border-gray-800 pt-8">
+                    <p class="text-gray-500">© 2025 Libasse Ndoye Cissé. Tous droits réservés.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script id="navigation">
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            const navLinks = document.querySelectorAll('a[href^="#"]');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script id="cursor">
+        document.addEventListener('DOMContentLoaded', function() {
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
+
+            document.addEventListener('mousemove', function(e) {
+                cursorDot.style.left = e.clientX + 'px';
+                cursorDot.style.top = e.clientY + 'px';
+                cursorOutline.style.left = e.clientX - 16 + 'px';
+                cursorOutline.style.top = e.clientY - 16 + 'px';
+            });
+
+            document.addEventListener('mousedown', function() {
+                cursorDot.style.transform = 'scale(2)';
+                cursorOutline.style.transform = 'scale(0.8)';
+            });
+
+            document.addEventListener('mouseup', function() {
+                cursorDot.style.transform = 'scale(1)';
+                cursorOutline.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+
+    <script id="scroll-progress">
+        document.addEventListener('DOMContentLoaded', function() {
+            const scrollProgress = document.querySelector('.scroll-progress');
+
+            window.addEventListener('scroll', function() {
+                const scrollTop = window.pageYOffset;
+                const docHeight = document.body.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                scrollProgress.style.width = scrollPercent + '%';
+            });
+        });
+    </script>
+
+    <script id="portfolio-filter">
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterBtns.forEach(b => {
+                        b.classList.remove('active', 'bg-primary', 'text-black');
+                        b.classList.add('text-gray-400');
+                    });
+
+                    this.classList.add('active', 'bg-primary', 'text-black');
+                    this.classList.remove('text-gray-400');
+
+                    const filter = this.getAttribute('data-filter');
+
+                    projectCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            filterBtns[0].classList.add('bg-primary', 'text-black');
+            filterBtns[0].classList.remove('text-gray-400');
+        });
+    </script>
+
+    <script src="https://static.readdy.ai/static/share.js"></script>
+</body>
+
+</html>
