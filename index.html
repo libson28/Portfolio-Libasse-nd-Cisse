@@ -377,13 +377,28 @@
                         <div class="flex space-x-4">
                             <button class="flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors">
                                 <i class="ri-external-link-line"></i>
-                                <span><a href="https://fada-link.netlify.app/">Voir le projet</a> </span>
+                                <!-- <span><a href="https://fada-link.netlify.app/">Voir le projet</a> </span> -->
+                                <button onclick="openModal()">Voir le projet</button>
                             </button>
 
                         </div>
                     </div>
                 </div>
+                <div id="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7);">
+                    <div style="position:relative; width:90%; height:80%; margin:5% auto; background:white; border-radius:8px; overflow:hidden;">
+                        <button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">❌</button>
+                        <iframe src="https://fada-link.netlify.app/" style="width:100%; height:100%; border:none;"></iframe>
+                    </div>
+                </div>
+                <script>
+                    function openModal() {
+                        document.getElementById("modal").style.display = "block";
+                    }
 
+                    function closeModal() {
+                        document.getElementById("modal").style.display = "none";
+                    }
+                </script>
                 <div class="project-card bg-gray-900/50 rounded-xl overflow-hidden border border-gray-800" data-category="web">
                     <div class="h-48 bg-cover bg-center" style="background-image: url('dev.png')">
                     </div>
@@ -397,13 +412,27 @@
                         <div class="flex space-x-4">
                             <button class="flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors">
                                 <i class="ri-external-link-line"></i>
-                                <span><a href="https://galsen-dev.netlify.app/">Voir le projet</a> </span>
+                                <button onclick="openModals()">Voir le projet</button>
                             </button>
 
                         </div>
                     </div>
                 </div>
+                <div id="modals" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7);">
+                    <div style="position:relative; width:90%; height:80%; margin:5% auto; background:white; border-radius:8px; overflow:hidden;">
+                        <button onclick="closeModals()" style="position:absolute; top:10px; right:10px;">❌</button>
+                        <iframe src="https://galsen-dev.netlify.app/" style="width:100%; height:100%; border:none;"></iframe>
+                    </div>
+                </div>
+                <script>
+                    function openModals() {
+                        document.getElementById("modals").style.display = "block";
+                    }
 
+                    function closeModals() {
+                        document.getElementById("modals").style.display = "none";
+                    }
+                </script>
                 <div class="project-card bg-gray-900/50 rounded-xl overflow-hidden border border-gray-800" data-category="web">
                     <div class="h-48 bg-cover bg-center" style="background-image: url('santé.png')">
                     </div>
@@ -417,13 +446,27 @@
                         <div class="flex space-x-4">
                             <button class="flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors">
                                 <i class="ri-external-link-line"></i>
-                               <span><a href="https://samasante.netlify.app/">Voir le projet</a> </span>
+                               <button onclick="openModalss()">Voir le projet</button>
                             </button>
 
                         </div>
                     </div>
                 </div>
+                <div id="modalss" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7);">
+                    <div style="position:relative; width:90%; height:80%; margin:5% auto; background:white; border-radius:8px; overflow:hidden;">
+                        <button onclick="closeModalss()" style="position:absolute; top:10px; right:10px;">❌</button>
+                        <iframe src="https://samasante.netlify.app/" style="width:100%; height:100%; border:none;"></iframe>
+                    </div>
+                </div>
+                <script>
+                    function openModalss() {
+                        document.getElementById("modalss").style.display = "block";
+                    }
 
+                    function closeModalss() {
+                        document.getElementById("modalss").style.display = "none";
+                    }
+                </script>
                 <div class="project-card bg-gray-900/50 rounded-xl overflow-hidden border border-gray-800" data-category="design">
                     <div class="h-48 bg-cover bg-center" style="background-image: url('gest.png')">
                     </div>
@@ -534,18 +577,12 @@
 
                     <div class="space-y-4">
                         <h3 class="text-xl font-semibold">Suivez-moi</h3>
-                        <div class="flex space-x-4">
-                            <a href="#" class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-primary hover:text-black transition-all">
+                        <div class="flex">
+                            <a href="https://www.linkedin.com/in/libasse-ndoye-cisse-73b8061b6/" class="flex  w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-primary hover:text-black transition-all">
                                 <i class="ri-linkedin-line text-xl"></i>
-                            </a>
-                            <a href="#" class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-primary hover:text-black transition-all">
-                                <i class="ri-github-line text-xl"></i>
-                            </a>
-                            <a href="#" class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-primary hover:text-black transition-all">
-                                <i class="ri-dribbble-line text-xl"></i>
-                            </a>
-                            <a href="#" class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-primary hover:text-black transition-all">
-                                <i class="ri-behance-line text-xl"></i>
+                            </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="https://www.instagram.com/libass_28/" class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-primary hover:text-black transition-all">
+                                <i class="ri-instagram-line text-xl"></i>
                             </a>
                         </div>
                     </div>
@@ -709,6 +746,13 @@
 
 
     <script src="https://static.readdy.ai/static/share.js"></script>
+</body>
+
+</html>
+
+</html>
+
+<script src="https://static.readdy.ai/static/share.js"></script>
 </body>
 
 </html>
